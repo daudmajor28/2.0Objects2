@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Astroid {
 
     //VARIABLE DECLARATION SECTION
@@ -9,7 +11,11 @@ public class Astroid {
     public int dy;                    //the speed of the hero in the y direction
     public int width;
     public int height;
-    public boolean isAlive;            //a boolean to denote if the hero is alive or dead.
+    public boolean isAlive;
+    public Rectangle hitbox;
+    public boolean isCrashing;
+
+    //a boolean to denote if the hero is alive or dead.
 
 
     // METHOD DEFINITION SECTION
@@ -25,10 +31,11 @@ public class Astroid {
         ypos = pYpos;
         dx =-5;
         dy =0;
-        width = 160;
-        height = 160;
+        width = 60;
+        height = 60;
         isAlive = true;
-
+        hitbox= new Rectangle(xpos,ypos,width,height);
+        isCrashing = false;
     }
 
     // constructor
@@ -58,6 +65,7 @@ public class Astroid {
 
             xpos = xpos + dx;
             ypos = ypos + dy;
+        hitbox= new Rectangle(xpos,ypos,width,height);
 
         }
     }

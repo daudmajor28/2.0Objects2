@@ -17,7 +17,10 @@ public class Astronaut {
     public boolean isAlive;            //a boolean to denote if the hero is alive or dead.
     public Rectangle hitbox;
 
-    // METHOD DEFINITION SECTION
+
+
+
+// METHOD DEFINITION SECTION
 
     // Constructor Definition
     // A constructor builds the object when called and sets variable values.

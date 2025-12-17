@@ -40,6 +40,7 @@ public class BasicGameApp implements Runnable {
 	public BufferStrategy bufferStrategy;
 	public Image astroPic;
     public Image AstroidPic;
+    public Image backgroundPic;
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
@@ -80,16 +81,19 @@ public class BasicGameApp implements Runnable {
       //create (construct) the objects needed for the game and load up 
 		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
         AstroidPic = Toolkit.getDefaultToolkit().getImage("Astoid.jpg"); //load the picture
-		astro = new Astronaut(20,300);
+        backgroundPic = Toolkit.getDefaultToolkit().getImage("stars.jpg"); //load the picture
+
+        astro = new Astronaut(20,300);
         astro.dy=2;
-        astro.height=30;
+        astro.height=40;
         astro.width=40;
         astro2 = new Astronaut(randy,randx);
         astro2.dy=-2;
         astro2.height=50;
         astro2.width=50;
 
-        astroid1 = new Astroid(100,randx);
+        astroid1 = new Astroid(100,420);
+        astroid1.dx= -astroid1.dx;
         astroid2 = new Astroid(randy,467);
 	}// BasicGameApp()
 
@@ -123,13 +127,27 @@ public class BasicGameApp implements Runnable {
 crashing();
 
     }
-    public void crashing(){
-        if(astro.hitbox.intersects(astro2.hitbox));
-        System.out.println("CRASH!!");
+    public void crashing() {
+        if (astro.hitbox.intersects(astro2.hitbox)) {
+            System.out.println("CRASH!!");
+            astro.dx = -astro.dx;
+            astro.dy = -astro.dy;
 
+
+        }
+        if (astroid1.hitbox.intersects(astroid2.hitbox)) {
+
+            System.out.println(" astroid collison");
+            astroid2.height = astroid2.height + 100;
+            astroid2.isCrashing = true;
+
+        }
+        if (!astroid1.hitbox.intersects(astroid2.hitbox)) {
+            astroid2.isCrashing = false;
+        }
 
     }
-	
+
    //Pauses or sleeps the computer for the amount specified in milliseconds
    public void pause(int time ){
    		//sleep
@@ -175,8 +193,9 @@ crashing();
 	private void render() {
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
-
+        g.drawImage(backgroundPic, 0, 0, WIDTH, HEIGHT, null);
       //draw the image of the astronaut
+
 		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
         if(astro2.isAlive == true){
 		g.drawImage(astroPic, astro2.xpos, astro2.ypos, astro2.width, astro2.height, null);}
